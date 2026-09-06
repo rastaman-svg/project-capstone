@@ -1,0 +1,533 @@
+/* ============================================================
+   OJT Attendance — ACLC College Daet Campus design system
+   Brand colors drawn from the ACLC diamond logo: deep navy +
+   red accent, on clean white surfaces.
+   ============================================================ */
+:root {
+  --ink:        #1B2A5E;   /* ACLC navy — headers, primary text */
+  --ink-soft:   #4A5578;   /* secondary text */
+  --accent:     #D42027;   /* ACLC red — actions, active states */
+  --accent-dark:#A81920;
+  --paper:      #F3F5FA;   /* page background (no bg-image pages) */
+  --card:       #FFFFFF;
+  --line:       #DFE3EE;
+  --ok:         #2E7D52;
+  --ok-bg:      #E5F3EA;
+  --warn:       #B3541E;
+  --warn-bg:    #FBEADE;
+  --danger:     #B3261E;
+  --danger-bg:  #FAE7E6;
+
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body:    "Space Grotesk", "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+a { color: inherit; }
+
+/* ---------- Page background images (index / student / admin) ---------- */
+/* Fixed full-bleed photo with a navy scrim so text/cards stay readable. */
+body.bg-photo {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+body.bg-photo::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(27,42,94,0.88) 0%, rgba(27,42,94,0.78) 100%);
+  z-index: 0;
+}
+body.bg-photo > * { position: relative; z-index: 1; }
+
+body.bg-index  { background-image: url("/images/bg-index.jpg"); }
+body.bg-student{ background-image: url("/images/bg-student.png"); }
+body.bg-admin  { background-image: url("/images/bg-admin.jpg"); }
+
+/* On photo backgrounds, text in the page header needs to sit on light. */
+body.bg-photo .page-head h1,
+body.bg-photo .page-head p { color: #FFFFFF; }
+body.bg-photo .page-head p { color: rgba(255,255,255,0.85); }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  background: var(--ink);
+  color: #FFFFFF;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--accent);
+}
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+}
+.topbar .brand .logo {
+  height: 42px;
+  width: auto;
+  border-radius: 4px;
+  background: #FFFFFF;
+  padding: 3px 6px;
+}
+.topbar .brand .title {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.topbar .brand .subtitle {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.03em;
+}
+.topbar nav {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.topbar nav a {
+  text-decoration: none;
+  color: #FFFFFF;
+  opacity: 0.8;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+}
+.topbar nav a:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+.topbar nav a.active { opacity: 1; background: var(--accent); font-weight: 600; }
+
+/* ---------- Layout ---------- */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+}
+.page-head { margin-bottom: 28px; }
+.page-head h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.page-head p { margin: 0; color: var(--ink-soft); }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 2px 14px rgba(27,42,94,0.06);
+}
+.card + .card { margin-top: 20px; }
+.card h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+
+/* ---------- Form elements ---------- */
+label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+input, select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+}
+input:focus, select:focus, button:focus, a:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+
+button, .btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+button:hover, .btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+button.secondary, .btn.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+button.secondary:hover, .btn.secondary:hover { background: var(--paper); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Landing hero: welcome text left, role cards right ---------- */
+.index-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  min-height: 60vh;
+  flex-wrap: wrap;
+}
+.index-hero-text {
+  max-width: 480px;
+  color: #FFFFFF;
+}
+.index-hero-text h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+.index-hero-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+@media (max-width: 800px) {
+  .index-hero { justify-content: center; text-align: center; }
+  .index-hero-text { max-width: 100%; }
+}
+
+/* ---------- Landing role picker: stacked, right-aligned ---------- */
+.role-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 380px;
+}
+.role-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+  transition: border-color 0.15s, transform 0.15s;
+  box-shadow: 0 4px 20px rgba(27,42,94,0.12);
+}
+.role-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.role-card .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.role-card h3 { font-family: var(--font-display); margin: 8px 0 6px; font-size: 20px; }
+.role-card p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
+@media (max-width: 640px) {
+  .role-stack { max-width: 100%; }
+}
+
+/* ---------- Table (attendance ledger) ---------- */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--line);
+}
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+tbody td.name { font-family: var(--font-body); font-weight: 500; }
+tbody tr:hover { background: var(--paper); }
+
+/* ---------- Status badge ---------- */
+.stamp-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1.5px solid currentColor;
+}
+.stamp-present  { color: var(--ok);     background: var(--ok-bg); }
+.stamp-incomplete { color: var(--warn); background: var(--warn-bg); }
+.stamp-absent   { color: var(--danger); background: var(--danger-bg); }
+.stamp-flagged  { color: var(--danger); background: var(--danger-bg); }
+
+/* ---------- Power banner ---------- */
+.power-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.power-banner .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.power-online  { background: var(--ok-bg); color: var(--ok); }
+.power-online .dot { background: var(--ok); }
+.power-offline { background: var(--danger-bg); color: var(--danger); }
+.power-offline .dot { background: var(--danger); animation: pulse 1.4s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* ---------- Circular hours-progress ring ---------- */
+.progress-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 0 4px;
+}
+.progress-ring {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(var(--accent) calc(var(--pct, 0) * 1%), var(--line) 0);
+  position: relative;
+}
+.progress-ring::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--card);
+}
+.progress-ring .ring-inner {
+  position: relative;
+  z-index: 1;
+}
+.progress-ring .ring-inner .big-num {
+  font-family: var(--font-mono);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+.progress-ring .ring-inner .big-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+.progress-legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 18px;
+}
+.progress-legend .stat .num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 17px;
+}
+.progress-legend .stat .label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+/* legacy linear hours bar, still used where a ring doesn't fit */
+.hours-row { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 4px; }
+.hours-stat .num {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+.hours-stat .label {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.progress-fill { height: 100%; background: var(--accent); }
+
+/* ---------- Misc ---------- */
+.empty-state { color: var(--ink-soft); font-size: 14px; padding: 18px 4px; }
+.error-msg {
+  background: var(--danger-bg); color: var(--danger);
+  border-radius: var(--radius); padding: 10px 14px; font-size: 13.5px; margin-bottom: 16px;
+}
+.success-msg {
+  background: var(--ok-bg); color: var(--ok);
+  border-radius: var(--radius); padding: 10px 14px; font-size: 13.5px; margin-bottom: 16px;
+}
+.helper { font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; }
+.inline-form { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.inline-form .field { margin-bottom: 0; flex: 1; min-width: 180px; }
+
+/* Horizontal tabs (kept for any page still using them) */
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--line); }
+.tabs button {
+  background: none; border: none; border-radius: 0;
+  padding: 10px 4px; margin-right: 22px; font-weight: 600; color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+}
+.tabs button.active { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs button:hover:not(.active) { color: var(--ink); background: none; }
+
+/* ---------- Resource library ---------- */
+.resource-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.resource-card:last-child { border-bottom: none; }
+.resource-title { font-weight: 600; font-size: 14.5px; }
+.resource-desc { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.resource-meta { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+.program-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  margin-right: 6px;
+}
+
+.admin-navbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.admin-navbar .nav-tab {
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+.admin-navbar .nav-tab:hover { color: var(--ink); }
+.admin-navbar .nav-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+.admin-main { min-width: 0; }
+
+/* ---------- Student info panel (roster tab) ---------- */
+.student-panel-shell {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .student-panel-shell { grid-template-columns: 1fr; }
+}
+.student-list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  gap: 8px;
+}
+.student-list-row:hover { background: var(--paper); }
+.student-list-row.active { background: var(--ink); color: #FFFFFF; }
+.student-list-row .sid { font-family: var(--font-mono); font-size: 11px; opacity: 0.7; }
+.avatar-circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  color: var(--ink-soft); flex-shrink: 0;
+}
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-top: 18px; }
+.info-grid .info-item .info-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); margin-bottom: 2px; }
+.info-grid .info-item .info-value { font-size: 14px; font-weight: 600; }
+
+/* ---------- Scanner & enroll layout (with responsive breakpoints) ----------
+   These were plain <style> blocks in the PHP version's scanner.php/enroll.php.
+   Ported here as real CSS classes rather than inline React styles, since
+   inline styles can't express @media queries — using them directly would
+   have silently dropped mobile/narrow-viewport support. */
+.scanner-shell {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 0;
+  height: calc(100vh - 74px);
+}
+@media (max-width: 900px) {
+  .scanner-shell { grid-template-columns: 1fr; height: auto; }
+}
+.enroll-shell {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .enroll-shell { grid-template-columns: 1fr; }
+}
